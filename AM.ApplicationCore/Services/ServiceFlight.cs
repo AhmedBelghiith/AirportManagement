@@ -12,30 +12,32 @@ namespace AM.ApplicationCore.Services
     {
         public List<Flight> Flights { get; set; } = new List<Flight>();
 
-        public List<DateTime> GetFlightDate(string destination)
+        public IEnumerable<DateTime> GetFlightDate(string destination)
         {
-            List<DateTime> result = new List<DateTime>();
-            for (int i = 0; i < Flights.Count; i++)
-            {
-                if (Flights[i].Destination == destination)
-                {
-                    result.Add(Flights[i].FlightDate);
-                }
-            }
-            return result;
-            foreach (var flight in Flights)
-            {
-                if (flight.Destination == destination)
-                {
-                    result.Add(flight.FlightDate);
-                }
-            }
-            return result;
+            //List<DateTime> result = new List<DateTime>();
+            //for (int i = 0; i < Flights.Count; i++)
+            //{
+            //    if (Flights[i].Destination == destination)
+            //    {
+            //        result.Add(Flights[i].FlightDate);
+            //    }
+            //}
+            //return result;
+            //foreach (var flight in Flights)
+            //{
+            //    if (flight.Destination == destination)
+            //    {
+            //        result.Add(flight.FlightDate);
+            //    }
+            //}
+            //return result;
 
             //IEnumerable<DateTime> Query = (IEnumerable<DateTime>)(from f in Flights 
             //                              where f.Destination == destination 
             //                              select f);
             //return Query.ToList();
+            IEnumerable<DateTime> queryLambda = Flights.Where(l => l.Destination == destination).Select(l => l.FlightDate);
+               return queryLambda;
         }
 
         public void GetFlight(string filterType, string filterValue)
@@ -147,6 +149,23 @@ namespace AM.ApplicationCore.Services
         }
         public Action<Plane> FlightDetailsDel;
         public Func<string, double> DurationAverageDel;
+
+        public ServiceFlight()
+        {
+            FlightDetailsDel = plane=> {
+                var Query =
+                from f in Flights
+                     where f.Plane == plane
+                     select new { f.FlightDate, f.Destination };
+                foreach (var f in Query)
+
+                {
+                    Console.WriteLine("Flight date:" + " " + f.FlightDate + " Flight destination" + " " + f.Destination);
+                }
+
+            };
+            DurationAverageDel = DurationAverage;
+        }
     }
 
 

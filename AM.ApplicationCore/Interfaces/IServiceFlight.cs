@@ -9,6 +9,6 @@ namespace AM.ApplicationCore.Interfaces
 {
     public interface IServiceFlight
     {
-        List<DateTime> GetFlightDate(string destination);
+        IEnumerable<DateTime> GetFlightDate(string destination);
     }
 }

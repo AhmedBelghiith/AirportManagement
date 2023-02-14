@@ -51,11 +51,11 @@ foreach (var item in serviceFlight.GetFlightDate("Paris"))
 }
 serviceFlight.GetFlight("Destination", "Paris");
 
-serviceFlight.showFlightDetails(TestData.BoingPlane);
+serviceFlight.FlightDetailsDel(TestData.BoingPlane);
 
 Console.WriteLine("Number of flights: " + serviceFlight.ProgrammedFlightNumber(new DateTime(2022,02,01)));
 Console.WriteLine("Average of Flighs : " +
-    serviceFlight.DurationAverage("Madrid"));
+    serviceFlight.DurationAverageDel("Madrid"));
 
 foreach (var i in serviceFlight.OrderedDurationFlights())
 {
@@ -64,11 +64,12 @@ foreach (var i in serviceFlight.OrderedDurationFlights())
 
 serviceFlight.DestinationGroupedFlights();
 
-//Console.WriteLine(serviceFlight.DurationAverageDel("paris"));
+
+
 Passenger p1 = new Passenger();
 
-p1.FirstName = "Ahmed ";
-p1.LastName = "Belghith";
+p1.FirstName = "ahmed ";
+p1.LastName = "belghith";
 Console.WriteLine(p1.ToString());
 p1.UpperFullName();
 Console.WriteLine(p1.ToString());
