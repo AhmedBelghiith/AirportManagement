@@ -79,15 +79,22 @@ namespace AM.ApplicationCore.Services
 
         public void showFlightDetails(Plane plane)
         {
-            var Query =
-                 from f in Flights
-                 where f.Plane == plane
-                 select new { f.FlightDate, f.Destination };
-            foreach (var f in Query)
+            //var Query =
+            //     from f in Flights
+            //     where f.Plane == plane
+            //     select new { f.FlightDate, f.Destination };
+            //foreach (var f in Query)
+
+            //{
+            //    Console.WriteLine("Flight date:" + " " + f.FlightDate + " Flight destination" + " " + f.Destination);
+            //}
+
+            var QueryLambda = Flights.Where(f => (f.Plane == plane)).Select(f => f);  
+            foreach (var f in QueryLambda)
 
             {
                 Console.WriteLine("Flight date:" + " " + f.FlightDate + " Flight destination" + " " + f.Destination);
-            }
+            };
 
         }
         public int ProgrammedFlightNumber(DateTime startDate)
@@ -99,23 +106,22 @@ namespace AM.ApplicationCore.Services
             //         select f;
             //return req.Count(); 
             //requete lambda
-            return Flights.Where(f => ((f.FlightDate - startDate).TotalDays <= 7) && DateTime.Compare(f.FlightDate, startDate) > 0).Select(f => f).Count();
+            var reqLambda= Flights.Where(f => ((f.FlightDate - startDate).TotalDays <= 7) && DateTime.Compare(f.FlightDate, startDate) > 0).Select(f => f).Count();
+            return reqLambda;
 
         }
 
         public double DurationAverage(string destination)
         {
 
-            var req = from f in Flights
-                      where f.Destination.Equals(destination)
-                      select f.EstimatedDuration;
+            //var req = from f in Flights
+            //          where f.Destination.Equals(destination)
+            //          select f.EstimatedDuration;
 
-            var reqAverage = TestData.listFlights
-                                .Where(f => f.Destination == destination)
-                                .Average(f => f.EstimatedDuration);
+            var reqAverage = Flights.Where(f => f.Destination == destination).Select(f => f.EstimatedDuration);
 
 
-            return req.Average();
+            return reqAverage.Average();
         }
 
         public IEnumerable<Flight> OrderedDurationFlights()
@@ -123,15 +129,20 @@ namespace AM.ApplicationCore.Services
             var req = from f in Flights
                       orderby f.EstimatedDuration
                       select f;
-            return req;
+
+            var reqLambda= Flights.OrderBy(f=> f.EstimatedDuration).Select(f => f);
+            return reqLambda;
         }
 
         public IEnumerable<Passenger> Seniortravellers(Flight flight)
         {
-            var req = from p in flight.Passengers.OfType<Traveller>()
-                      orderby p.BirthDate ascending
-                      select p;
-            return req.Take(3);
+            //var req = from p in flight.Passengers.OfType<Traveller>()
+            //          orderby p.BirthDate ascending
+            //          select p;
+
+            var reqLambda = flight.Passengers.OfType<Traveller>()
+                .OrderBy(f => f.BirthDate).Select(f=>f);
+            return reqLambda.Take(3);
 
         }
 
@@ -139,7 +150,8 @@ namespace AM.ApplicationCore.Services
         {
             var req = from f in Flights
                       group f by f.Destination;
-            foreach (var g in req)
+            var reqLambda = Flights.GroupBy(f => f.Destination);
+            foreach (var g in reqLambda)
             {
                 Console.WriteLine("Destination :" + g.Key);
 
