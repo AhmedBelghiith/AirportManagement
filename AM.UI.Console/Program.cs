@@ -2,6 +2,7 @@
 using AM.ApplicationCore.Domain;
 using AM.ApplicationCore.Interfaces;
 using AM.ApplicationCore.Services;
+using AM.Infrastructure;
 
 Plane Plane1 = new Plane();
 Plane1.Capacity = 200;
@@ -73,4 +74,13 @@ p1.LastName = "belghith";
 Console.WriteLine(p1.ToString());
 p1.UpperFullName();
 Console.WriteLine(p1.ToString());
+
+//instaciation 
+AMContext ctx = new AMContext();
+
+// ajout d'object aux DBSET
+ctx.Flights.Add(TestData.flight1);
+
+//persister les données
+ctx.SaveChanges();
 
