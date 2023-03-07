@@ -20,24 +20,21 @@ Plane Plane3 = new Plane
 
 Passenger passenger1 = new Passenger
 {
-    FirstName = "test",
-    LastName = "test1",
+    FullName = new FullName { FirstName = "traveller4", LastName = "traveller4" },
     EmailAdress = "test@esprit.tn"
 };
 Console.WriteLine(passenger1.CheckProfile("test", "test", "test@esprit.tn"));
 Traveller traveller1 = new Traveller
 {
 
-    FirstName = "test",
-    LastName = "test1",
+    FullName = new FullName { FirstName = "test2", LastName = "traveller4" },
     Nationality = "Tunisian"
 };
 Console.WriteLine("traveller1: ");
 traveller1.PassengerType();
 Staff staff1 = new Staff
 {
-    FirstName = "aa",
-    LastName = "bb",
+    FullName = new FullName { FirstName = "traveller4", LastName = "traveller4" },
     Salary = 6000.0
 };
 Console.WriteLine("Staff1: ");
@@ -69,8 +66,8 @@ serviceFlight.DestinationGroupedFlights();
 
 Passenger p1 = new Passenger();
 
-p1.FirstName = "ahmed ";
-p1.LastName = "belghith";
+p1.FullName.FirstName = "ahmed ";
+p1.FullName.LastName = "belghith";
 Console.WriteLine(p1.ToString());
 p1.UpperFullName();
 Console.WriteLine(p1.ToString());

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,18 +8,25 @@ namespace AM.ApplicationCore.Domain
 {
     public class Passenger
     {
-        public int Id { get; set; }
-        public DateOnly? BirthDate { get; set; }
+        [Display(Name = "Date of Birth")]
+        [DataType(DataType.Date)]
+        public DateTime BirthDate { get; set; }
+
+        [Key]
+        [StringLength(7)]
         public int PassportNumber { get; set; }
+
+        [DataType(DataType.EmailAddress)]
         public string EmailAdress { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public FullName FullName { get; set; }
+
+        [RegularExpression(@"^[0-9]{8}$", ErrorMessage = "Invalid Phone Number!")]
         public int TelNumber { get; set; }
         public List<Flight> Flights { get; set; }
 
         public override string ToString()
         {
-            return "FirstName & LastName: " +this.FirstName + this.LastName;
+            return "FirstName & LastName: " +this.FullName.FirstName + this.FullName.LastName;
         }
 
         //public bool CheckProfile(string firstName, string lastName)
@@ -36,11 +44,11 @@ namespace AM.ApplicationCore.Domain
         {
             if(email == null)
             {
-                return firstName == this.FirstName && lastName == this.LastName;
+                return firstName == this.FullName.FirstName && lastName == this.FullName.LastName;
             }
             else
             {
-                return firstName == this.FirstName && lastName == this.LastName &&
+                return firstName == this.FullName.FirstName && lastName == this.FullName.LastName &&
                 email == this.EmailAdress;
             }
         }
