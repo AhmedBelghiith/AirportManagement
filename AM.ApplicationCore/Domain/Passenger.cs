@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace AM.ApplicationCore.Domain
 {
@@ -22,8 +23,8 @@ namespace AM.ApplicationCore.Domain
 
         [RegularExpression(@"^[0-9]{8}$", ErrorMessage = "Invalid Phone Number!")]
         public int TelNumber { get; set; }
-        public List<Flight> Flights { get; set; }
-
+        //public List<Flight> Flights { get; set; }
+        public virtual ICollection<Ticket> Tickets { get; set; }
         public override string ToString()
         {
             return "FirstName & LastName: " +this.FullName.FirstName + this.FullName.LastName;

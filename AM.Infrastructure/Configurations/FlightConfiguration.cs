@@ -14,10 +14,10 @@ namespace AM.Infrastructure.Configration
     {
         public void Configure(EntityTypeBuilder<Flight> builder)
         {
-            builder.HasMany(f => f.Passengers).
-                WithMany(p => p.Flights).
-                UsingEntity(e=>e.
-                ToTable("Réservation"));//many to many configuration et configration le nom de la table association
+            //builder.HasMany(f => f.Passengers).
+            //    WithMany(p => p.Flights).
+            //    UsingEntity(e=>e.
+            //    ToTable("Réservation"));//many to many configuration et configration le nom de la table association
             builder.HasOne(f => f.Plane).
                 WithMany(p => p.Flights).
                 HasForeignKey(f=>f.PlaneId).

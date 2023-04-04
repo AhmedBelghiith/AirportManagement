@@ -19,8 +19,9 @@ namespace AM.ApplicationCore.Domain
         [ForeignKey("Plane")]//même nom de la navigation
         public int PlaneId { get; set; }//clé etrange
 
-        public Plane Plane { get; set; }
-        public ICollection<Passenger> Passengers { get; set; }
+        public virtual Plane Plane { get; set; }
+        //public ICollection<Passenger> Passengers { get; set; }
+        public virtual ICollection<Ticket> Tickets { get; set; }
         public string? AirlineLogo { get; set; }
 
         public override string ToString()
