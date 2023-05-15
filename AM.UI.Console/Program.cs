@@ -3,6 +3,7 @@ using AM.ApplicationCore.Domain;
 using AM.ApplicationCore.Interfaces;
 using AM.ApplicationCore.Services;
 using AM.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 //Plane Plane1 = new Plane();
 //Plane1.Capacity = 200;
@@ -84,6 +85,33 @@ ctx.SaveChanges();
 
 //affichage
 Console.WriteLine(ctx.Flights.First().Plane.Capacity);
+
+
+//TP7 j'ai trouvé une erreur au niveau de ligne 92 je n'ai pas compris pourquoi
+
+//IUnitOfWork unitOfWork = new UnitOfWork();
+//IServicePlane servicePlane = new ServicePlane(unitOfWork);
+
+//// Delete planes older than 10 years
+//servicePlane.DeletePlanes();
+
+//// Get the 3 most recent flights
+//var flights = servicePlane.GetFlights(3);
+//Console.WriteLine("The 3 most recent flights are:");
+
+
+//// Get all passengers for a specific plane
+//var passengers = servicePlane.GetPassengers(TestData.BoingPlane);
+//Console.WriteLine($"The passengers for the {TestData.BoingPlane.PlaneType} are:");
+//foreach (var passenger in passengers)
+//{
+//    Console.WriteLine($"{passenger.FullName.FirstName} {passenger.FullName.LastName}");
+//}
+
+//// Check if a plane has available seats for a flight
+//var flight = TestData.flight1;
+//var isAvailable = servicePlane.IsAvailablePlane(flight, 2);
+//Console.WriteLine($"The {flight.Plane.PlaneType} has available seats for the flight to {flight.Destination}: {isAvailable}");
 
 
 

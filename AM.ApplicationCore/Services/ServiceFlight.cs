@@ -1,5 +1,6 @@
 ﻿using AM.ApplicationCore.Domain;
 using AM.ApplicationCore.Interfaces;
+using AM.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,36 @@ using System.Threading.Tasks;
 
 namespace AM.ApplicationCore.Services
 {
-    public class ServiceFlight : IServiceFlight
+    public class ServiceFlight : Service<Flight>, IServiceFlight
     {
-        public List<Flight> Flights { get; set; } = new List<Flight>();
+
+        public List<Flight> Flights => GetAll().ToList();
+        public ServiceFlight(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+
+
+        }
+        //private readonly IGenericRepository<Flight> _repo;
+        //public ServiceFlight(IGenericRepository<Flight> repo)
+        //{
+        //    _repo= repo;
+        //}
+        //public void Add(Flight flight)
+        //{
+        //    _repo.Add(flight);
+        //}
+
+        //public void Remove(Flight flight)
+        //{
+        //    _repo.Delete(flight);
+        //}
+
+        //public IList<Flight> GetAll()
+        //{
+        //  return (IList<Flight>)_repo.GetAll();
+        //}
+
+        public List<Flight> flights { get; set; } = new List<Flight>();
 
         public IEnumerable<DateTime> GetFlightDate(string destination)
         {
@@ -159,25 +187,33 @@ namespace AM.ApplicationCore.Services
                 { Console.WriteLine("Décolage:" + f.FlightDate); }
             }
         }
+
+        public void Seniortravellers()
+        {
+            throw new NotImplementedException();
+        }
+
+      
+
         public Action<Plane> FlightDetailsDel;
         public Func<string, double> DurationAverageDel;
 
-        public ServiceFlight()
-        {
-            FlightDetailsDel = plane=> {
-                var Query =
-                from f in Flights
-                     where f.Plane == plane
-                     select new { f.FlightDate, f.Destination };
-                foreach (var f in Query)
+        //public ServiceFlight()
+        //{
+        //    FlightDetailsDel = plane=> {
+        //        var Query =
+        //        from f in Flights
+        //             where f.Plane == plane
+        //             select new { f.FlightDate, f.Destination };
+        //        foreach (var f in Query)
 
-                {
-                    Console.WriteLine("Flight date:" + " " + f.FlightDate + " Flight destination" + " " + f.Destination);
-                }
+        //        {
+        //            Console.WriteLine("Flight date:" + " " + f.FlightDate + " Flight destination" + " " + f.Destination);
+        //        }
 
-            };
-            DurationAverageDel = DurationAverage;
-        }
+        //    };
+        //    DurationAverageDel = DurationAverage;
+        //}
     }
 
 
